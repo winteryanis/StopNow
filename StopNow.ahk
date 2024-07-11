@@ -1,30 +1,24 @@
-﻿#Persistent
+#Persistent
 #MaxHotkeysPerInterval 10000
 
 scriptActive := true
 leftMouseDown := false
 
 $^b::
-scriptActive := !scriptActive
-return
-
-$z::
-$q::
-$s::
-$d::
-if (scriptActive && leftMouseDown) {
+    scriptActive := !scriptActive
     return
-}
-if (!scriptActive || !leftMouseDown  && scriptActive) {
-    hotkeyName := StrReplace(A_ThisHotkey, "$", "")
-    Send, %hotkeyName%
-}
-return
 
 ~LButton::
-leftMouseDown := true
-return
+    leftMouseDown := true
+    return
 
 ~LButton Up::
-leftMouseDown := false
-return
+    leftMouseDown := false
+    return
+
+#If (scriptActive && leftMouseDown)
+    *z::return
+    *q::return
+    *s::return
+    *d::return
+#If
